@@ -1,0 +1,2 @@
+#!/bin/sh
+printf 'Status: 410 Gone\r\nContent-Type: application/json\r\nCache-Control: no-store\r\n\r\n{"ok":false,"code":"retired"}\n'

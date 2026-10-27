@@ -1,0 +1,4 @@
+#!/bin/sh
+# Retained as an advanced recovery tool; not used by the formal firmware UI.
+echo disabled > /tmp/oa_usbnet.status
+exit 0

@@ -1,0 +1,9 @@
+#!/bin/sh
+# The bridge's internal queue address is valid only for this exact executable.
+EXPECTED=81839ce6740348b230c926942aaade31991deb0acaa8988403eaddab2e89db1e
+ACTUAL=$(sha256sum /usr/bin/cmd_rlv_transfer | cut -d' ' -f1)
+if [ "$ACTUAL" = "$EXPECTED" ] && [ -r /usr/lib/oa_rtmp_bridge.so ]; then
+    exec env LD_PRELOAD=/usr/lib/oa_rtmp_bridge.so /usr/bin/cmd_rlv_transfer
+fi
+echo unsupported_executable > /tmp/oa_rtmp_web/bridge.status
+exec /usr/bin/cmd_rlv_transfer

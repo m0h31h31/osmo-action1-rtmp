@@ -1,0 +1,43 @@
+#!/bin/sh
+# Ownership is chosen once per full boot. Never change a running radio here.
+umask 077
+case "$1" in
+prepare)
+    n=0
+    while ! grep -q ' /tmp/SD0 ' /proc/mounts && [ "$n" -lt 40 ]; do sleep 1; n=$((n+1)); done
+    if ! grep -q ' /tmp/SD0 ' /proc/mounts || [ -e /tmp/SD0/OA_STA_DISABLE ] || [ -e /tmp/SD0/NO_WIFI ]; then
+        echo system > /tmp/oa_network.mode
+    else
+        echo sta > /tmp/oa_network.mode
+    fi
+    ;;
+start)
+    n=0
+    while [ ! -s /tmp/oa_network.mode ] && [ "$n" -lt 45 ]; do sleep 1; n=$((n+1)); done
+    [ "$(cat /tmp/oa_network.mode 2>/dev/null)" = sta ] || exit 0
+    # A missing/invalid card file does not fall back to a custom access point.
+    /usr/bin/oa_network_api --prepare-config /tmp/SD0/wifi.conf /tmp/wpa_supplicant.conf || { echo config_invalid > /tmp/oa_network.status; exit 1; }
+    echo connecting > /tmp/oa_network.status
+    # A locally administered address is generated once per camera. Existing
+    # installations can migrate their current address into oa_sta_mac.
+    mac=$(cat /tmp/user_data/oa_sta_mac 2>/dev/null)
+    if ! printf '%s\n' "$mac" | grep -Eq '^[0-9a-fA-F][02468aAcCeE](:[0-9a-fA-F]{2}){5}$' || [ "$mac" = '00:00:00:00:00:00' ]; then
+        suffix=$(dd if=/dev/urandom bs=5 count=1 2>/dev/null | od -An -tx1 | tr -d ' \n')
+        [ "${#suffix}" -eq 10 ] || exit 1
+        mac="02$(printf '%s' "$suffix" | sed 's/../:&/g')"
+        printf '%s\n' "$mac" > /tmp/user_data/oa_sta_mac.new && mv /tmp/user_data/oa_sta_mac.new /tmp/user_data/oa_sta_mac || exit 1
+        sync
+        [ "$(cat /tmp/user_data/oa_sta_mac)" = "$mac" ] || exit 1
+    fi
+    printf '%s\n' "$mac" > /tmp/wifi0_mac
+    if [ ! -e /sys/module/bcmdhd ]; then /usr/local/share/script/load.sh sta; fi
+    n=0
+    while [ ! -e /sys/class/net/wlan0 ] && [ "$n" -lt 20 ]; do sleep 1; n=$((n+1)); done
+    [ -e /sys/class/net/wlan0 ] || { echo driver_failed > /tmp/oa_network.status; exit 1; }
+    ifconfig wlan0 up
+    /usr/local/share/script/sta_start.dji.sh prepared
+    # wpa_supplicant and udhcpc manage reconnection; no mode-changing watchdog.
+    echo started > /tmp/oa_network.status
+    ;;
+*) exit 2;;
+esac

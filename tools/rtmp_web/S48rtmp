@@ -1,0 +1,12 @@
+#!/bin/sh
+# Runtime state only; never start a live stream here.
+umask 077
+mkdir -p /tmp/oa_rtmp_web || exit 1
+if grep -q ' /tmp/user_data ' /proc/mounts; then
+    mkdir -p /tmp/user_data/oa_rtmp_web || exit 1
+fi
+dd if=/dev/urandom bs=32 count=1 2>/dev/null | od -An -tx1 | tr -d ' \n' > /tmp/oa_rtmp_web/token.new
+[ "$(wc -c < /tmp/oa_rtmp_web/token.new)" -eq 64 ] || exit 1
+mv /tmp/oa_rtmp_web/token.new /tmp/oa_rtmp_web/token
+echo boot_prepared > /tmp/oa_rtmp_web/bridge.status
+exit 0

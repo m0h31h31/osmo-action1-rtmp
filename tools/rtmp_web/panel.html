@@ -1,0 +1,77 @@
+<!-- OA_RTMP_PANEL_V1 -->
+<section class="card" id="rtmp-panel" aria-labelledby="rtmp-title">
+  <h2 id="rtmp-title">RTMP 直播管理</h2>
+  <div class="row"><span class="k">相机推流状态</span><strong id="rtmp-state">尚未查询</strong></div>
+  <div class="row"><span class="k">持续时间 / 相机报告码率</span><span id="rtmp-detail">—</span></div>
+  <div class="note" id="rtmp-updated">状态未读取</div>
+  <label for="rtmp-url">推流地址</label>
+  <input id="rtmp-url" type="text" spellcheck="false" autocomplete="off" maxlength="199" placeholder="rtmp://服务器/应用/流名">
+  <label for="rtmp-rate">视频码率（kbps）</label>
+  <input id="rtmp-rate" type="number" min="500" max="6000" step="1" value="2000">
+  <div class="note" id="rtmp-dirty">保存配置后，下次启动生效。</div>
+  <div class="grid">
+    <button type="button" id="rtmp-save" disabled>保存配置</button>
+    <button type="button" id="rtmp-refresh" disabled>刷新状态</button>
+    <button type="button" id="rtmp-start" disabled>启动推流</button>
+    <button type="button" id="rtmp-stop" disabled style="background:#6e3030;border-color:#8b4444">停止推流</button>
+  </div>
+  <div class="note" role="status" aria-live="polite" id="rtmp-msg">正在加载配置…</div>
+  <div class="note" id="rtmp-playback"></div>
+  <div class="note">这里管理相机推流，不代表接收服务器已收到画面。低延迟修正仍在电脑上运行。相机重启后需恢复临时控制服务和网页部署；保存配置不会自动开播。</div>
+</section>
+<script>
+(() => {
+  const el = id => document.getElementById('rtmp-' + id);
+  let token='', saved=null, busy=false, streaming=null;
+  async function api(options={},timeout=40000) {
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),timeout);
+    try {return await (await fetch('/cgi-bin/rtmp',{...options,cache:'no-store',signal:controller.signal})).json();}
+    catch(error){if(error.name==='AbortError')throw new Error('连接超时，请检查相机网络后重试');throw error;}
+    finally{clearTimeout(timer);}
+  }
+  const dirty=()=>saved && (el('url').value!==saved.url || Number(el('rate').value)!==saved.bitrate);
+  function controls() {
+    for (const id of ['save','refresh','start','stop']) el(id).disabled=busy||!token;
+    el('start').disabled=busy||!token||dirty()||streaming===true;
+    el('url').disabled=el('rate').disabled=busy;
+    el('dirty').textContent=dirty()?'有未保存的修改，请先保存。':'保存配置后，下次启动生效；运行中更改需先停止再启动。';
+  }
+  function playback() {
+    el('playback').textContent=saved.url==='rtmp://192.168.100.6:1935/live/osmo'
+      ? 'OBS 低延迟地址：rtmp://192.168.100.6:1935/live/osmo-lowdelay（需电脑接收及修正服务运行）'
+      : '自定义推流目标：请在对应服务器确认接收；当前电脑的低延迟服务只处理默认目标。';
+  }
+  async function run(action,automatic=false) {
+    if(busy||!token)return;
+    busy=true;controls();
+    if(!automatic)el('msg').textContent='正在'+({save:'保存配置',start:'启动推流',stop:'停止推流',status:'查询状态'}[action])+'…';
+    try {
+      const data={action,token};
+      if(action==='save'){data.url=el('url').value.trim();data.bitrate=el('rate').value;}
+      const result=await api({method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(data)});
+      if(!result.ok)throw new Error(result.message||'操作失败');
+      if(action==='save'){saved={url:data.url,bitrate:Number(data.bitrate)};el('url').value=data.url;playback();}
+      if(typeof result.streaming==='boolean'){
+        streaming=result.streaming;
+        el('state').textContent=streaming?'推流中（相机报告）':'已停止（相机报告）';
+        el('state').className=streaming?'ok':'';
+        el('detail').textContent=streaming?result.elapsed+' 秒 / '+result.bitrate+' kbps':'—';
+        el('updated').textContent='最近确认：'+new Date().toLocaleTimeString();
+      }
+      if(!automatic)el('msg').textContent=result.message;
+    }catch(error){
+      el('msg').textContent=error.message;
+      if(action!=='save'){streaming=null;el('state').textContent='状态未知';el('state').className='warn';el('detail').textContent='—';el('updated').textContent='查询或操作失败，以上次成功时间为准';}
+    }finally{busy=false;controls();}
+  }
+  for(const id of ['url','rate'])el(id).addEventListener('input',controls);
+  for(const action of ['save','start','stop'])el(action).onclick=()=>run(action);
+  el('refresh').onclick=()=>run('status');
+  api({},10000).then(r=>{
+    if(!r.ok)throw new Error(r.message);token=r.token;saved={url:r.url,bitrate:r.bitrate};
+    el('url').value=r.url;el('rate').value=r.bitrate;playback();controls();return run('status');
+  }).catch(e=>{el('msg').textContent='配置加载失败，请刷新网页：'+e.message;});
+  setInterval(()=>{if(!document.hidden)run('status',true);},30000);
+})();
+</script>

@@ -1,0 +1,5 @@
+#!/bin/sh
+n=0
+while [ ! -s /tmp/oa_network.mode ] && [ "$n" -lt 45 ]; do sleep 1; n=$((n+1)); done
+[ "$(cat /tmp/oa_network.mode 2>/dev/null)" = system ] || exit 0
+exec /usr/lib/oa-stock/dji_wms_ac101 "$@"

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Do not block S99's native boot notification. Never start RTMP here.
+/usr/bin/oa_usbnet boot >> /tmp/oa_usbnet.log 2>&1 &
+exit 0

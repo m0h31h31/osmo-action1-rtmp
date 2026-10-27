@@ -1,0 +1,3 @@
+#!/bin/sh
+[ "$(cat /tmp/oa_network.mode 2>/dev/null)" = system ] || exit 0
+exec /usr/lib/oa-stock/hostapd "$@"

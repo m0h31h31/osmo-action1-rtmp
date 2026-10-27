@@ -1,0 +1,207 @@
+{
+  "package": "OSMO_ACTION_FW_V01.10.00.83.bin",
+  "sha256": "5b244f23bd099e0a6b94c749e93dbdcab51ca0723e16dca6f23d10f093e7bda6",
+  "bytes": 40708086,
+  "package_version": "01.10.00.83",
+  "module_version": "01.81.7311",
+  "autostart_stream": false,
+  "native_boot_handshake": true,
+  "saved_handshake_included": false,
+  "non_rootfs_partitions_identical": true,
+  "header_crc16_verified": true,
+  "module_md5_verified": true,
+  "lz4_roundtrip_verified": true,
+  "ext2_readonly_check_passed": true,
+  "device_flash_tested": true,
+  "files": {
+    "/etc/init.d/S48rtmp": {
+      "sha256": "d14f9a7c7d8482abb623781664afe5c11231a989ff0b32f9c83bc2f99f9131fd",
+      "bytes": 487,
+      "mode": "0o755"
+    },
+    "/etc/init.d/S50service_dji": {
+      "sha256": "55ab5b92808a033f002fb2e8d50d4981948842fec3f0ac9316dd2aab34fc8229",
+      "bytes": 1049,
+      "mode": "0o755"
+    },
+    "/etc/init.d/S55rootshell": {
+      "sha256": "a2154acc2c9413b4c455946eafc87bbf5bcae3ead827b95a2e500545368949ed",
+      "bytes": 414,
+      "mode": "0o755"
+    },
+    "/usr/bin/oa_cmd_start": {
+      "sha256": "2c8f410207378f1d0e16bda400acaa2e543d3fd849ee87884bff1fd5f310f1ae",
+      "bytes": 471,
+      "mode": "0o755"
+    },
+    "/usr/lib/oa_rtmp_bridge.so": {
+      "sha256": "5342df89436e0aae13040baf5b5956c9b0caa9a2bbeaa485759f740d130a062b",
+      "bytes": 68368,
+      "mode": "0o644"
+    },
+    "/usr/local/www/cgi-bin/rtmp": {
+      "sha256": "e17723b66a0c28a501ce52eb57220af7d0731bc2315b03a7d35dc933c27c5dbf",
+      "bytes": 703112,
+      "mode": "0o755"
+    },
+    "/usr/local/www/index.html": {
+      "sha256": "2490f8563f6a8fad57e4d7ced521a6da2974c235c9b174180eeb7f513edc344d",
+      "bytes": 13950,
+      "mode": "0o644"
+    },
+    "/etc/init.d/S98usbnet": {
+      "sha256": "fcdc3996657edd735ab9291a28e397d14a33327c407a35d9d9cafd245ac15033",
+      "bytes": 132,
+      "mode": "0o755"
+    },
+    "/usr/bin/oa_usbnet": {
+      "sha256": "308a638e36b92a07fdf83b30446dfdf90b4b9db1d843e320d2c239c11fe419e8",
+      "bytes": 2362,
+      "mode": "0o755"
+    },
+    "/usr/local/www/cgi-bin/usb-status": {
+      "sha256": "6e47c7b720b2f321bef22c398f0e2dd4a72c33cf0d96a747fdf392db514c95e6",
+      "bytes": 537,
+      "mode": "0o755"
+    },
+    "/usr/lib/oa-usb/dwc3-ambarella-internal48.ko": {
+      "sha256": "74d5d66882b23ab6ff8a8ced4a8bf1ec8d6452a3cb227d5e3fc3a6cd295161ab",
+      "bytes": 6016,
+      "mode": "0o644"
+    },
+    "/usr/lib/oa-usb/usb_f_rndis-win.ko": {
+      "sha256": "64ae29f8947e3083f6cbbadf89da0b7f1aefc61841b9ad12ea10aae73315d968",
+      "bytes": 35480,
+      "mode": "0o644"
+    },
+    "/usr/lib/oa-usb/g_ether-rndis-win.ko": {
+      "sha256": "87f5f9a7c233233b7701c37714d9af1531038b4f1e1f0303fd6e8d0e2ab8223a",
+      "bytes": 10216,
+      "mode": "0o644"
+    },
+    "/usr/lib/oa-stock/hostapd": {
+      "sha256": "aae69f8f59ebf327937ea55932ef2cb4ae0e8fd0ff45c684bf8ac8766ab64e53",
+      "bytes": 494048,
+      "mode": "0o755"
+    },
+    "/usr/lib/oa-stock/dji_wms_ac101": {
+      "sha256": "3c8e7a488951d092c83a726a4cf8ad94f16483d165900ae00095dd87ec933868",
+      "bytes": 392272,
+      "mode": "0o755"
+    },
+    "/usr/bin/oa_network": {
+      "sha256": "961984e64e2a3437d2ad49d45420ecd15e7e6f8b5a6f7cb78ad78a07428372e3",
+      "bytes": 2158,
+      "mode": "0o755"
+    },
+    "/usr/bin/oa_network_api": {
+      "sha256": "b78d94c8c0926ba330d3265b9e8f653fa23de63549043b8ab66fb357e43089a1",
+      "bytes": 702304,
+      "mode": "0o755"
+    },
+    "/usr/local/www/cgi-bin/network": {
+      "sha256": "b78d94c8c0926ba330d3265b9e8f653fa23de63549043b8ab66fb357e43089a1",
+      "bytes": 702304,
+      "mode": "0o755"
+    },
+    "/etc/init.d/S49network": {
+      "sha256": "34d56909d697f828c2311efcf1dcf79d974eca72aa8593c4d0991178c997c02a",
+      "bytes": 75,
+      "mode": "0o755"
+    },
+    "/etc/init.d/S57wifi": {
+      "sha256": "0603704642a1d5ff769a8a2d0cc9bc432899048a78040a536912851757381b51",
+      "bytes": 73,
+      "mode": "0o755"
+    },
+    "/usr/local/share/script/wifi_start.sh": {
+      "sha256": "4337158736d7c93c2330368cd95af2b7f49eb4e4a6d5d9f07be035443b4a5e74",
+      "bytes": 201,
+      "mode": "0o755"
+    },
+    "/usr/local/share/script/wifi_stop.sh": {
+      "sha256": "12510fd6268e937dcc5ce1e1e61fdf8a2eec55d21606039b4ba376750627634c",
+      "bytes": 200,
+      "mode": "0o755"
+    },
+    "/usr/local/share/script/sta_start.sh": {
+      "sha256": "e1e522f0aad18704ae8561a7ebba1a765c6f9a0812ae7317af2fbd1b69d91ab3",
+      "bytes": 200,
+      "mode": "0o755"
+    },
+    "/usr/local/share/script/ap_start.sh": {
+      "sha256": "5a8044de6ba880786d22b165c6cc7817f4ebfbb746a0fe77cc79e47685696174",
+      "bytes": 199,
+      "mode": "0o755"
+    },
+    "/usr/local/share/script/wifi_mdev_action.sh": {
+      "sha256": "89c7bd800f7bf6c33bbf4d4b36d0f82602cd71e3a8ecf73d98a922ee1fd6a9ef",
+      "bytes": 207,
+      "mode": "0o755"
+    },
+    "/usr/bin/hostapd": {
+      "sha256": "7e46c0dbdea385cb9933b81997d82606040a06ea5362ec308b0fb2cb08d501d2",
+      "bytes": 111,
+      "mode": "0o755"
+    },
+    "/usr/bin/dji_wms_ac101": {
+      "sha256": "e271ea46ef3c0be82cefb764af1c4f980b3f2c004c387b426e8f1a4426638195",
+      "bytes": 206,
+      "mode": "0o755"
+    },
+    "/etc/wifiwatch.sh": {
+      "sha256": "bce84a94e62881a08d82694353de648f2c0905e765b8ab479df5578c8b1aef4f",
+      "bytes": 98,
+      "mode": "0o755"
+    },
+    "/usr/local/www/cgi-bin/apply": {
+      "sha256": "725dd6c7470e6b0ce129eb1b3e4cde49e32f6d2eae946c056be0ca39b2a5fa6c",
+      "bytes": 136,
+      "mode": "0o755"
+    },
+    "/usr/local/www/cgi-bin/status": {
+      "sha256": "725dd6c7470e6b0ce129eb1b3e4cde49e32f6d2eae946c056be0ca39b2a5fa6c",
+      "bytes": 136,
+      "mode": "0o755"
+    },
+    "/usr/bin/oa_snake": {
+      "sha256": "df635d6b083e3e270481a364e3ef5906660a6a59bcecabcd95a28f01debef31c",
+      "bytes": 705384,
+      "mode": "0o755"
+    },
+    "/usr/bin/oa_snake_boot": {
+      "sha256": "1dc80aa3dacc3e03318317862fa3bb5904cfee40099372ad88b26c9023d8239f",
+      "bytes": 510,
+      "mode": "0o755"
+    },
+    "/etc/init.d/S99snake": {
+      "sha256": "d3f0ec0a00c1adadeb6df078662e130fe938e66369ba376a790b9729138eb8a1",
+      "bytes": 68,
+      "mode": "0o755"
+    }
+  },
+  "custom_wifi_modes": [
+    "sta"
+  ],
+  "wifi_toggle_apply": "full_power_cycle",
+  "usb_ethernet_default": false,
+  "usb_ethernet_retained": true,
+  "native_snake_included": true,
+  "web_languages": [
+    "zh-CN",
+    "en"
+  ],
+  "sta_coldboot_tested": true,
+  "sta_restored_after_stock_mode_tested": true,
+  "usb_default_disabled_tested": true,
+  "native_snake_entry_swipe_exit_user_confirmed": true,
+  "stock_wifi_mimo_preview_user_confirmed": true,
+  "rtmp_manual_start_stop_tested": true,
+  "receiver_decode_tested": true,
+  "web_switch_pending_behavior_tested": true,
+  "web_i18n_browser_tested": true,
+  "release_status": "validated_on_current_AC101",
+  "remaining_validation": [
+    "Broader long-duration recording and original USB file-transfer regression"
+  ]
+}

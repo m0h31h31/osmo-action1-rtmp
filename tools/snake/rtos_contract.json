@@ -1,0 +1,37 @@
+{
+  "image_sha256": "662bc2f4f8700bb0edd82af26c93d8efd94a75045e632b12ce635920648bfa92",
+  "payload_sha256": "81554158ef93275ea74c7f0234374d61d919fed2c04624d85d814d34f4cfd605",
+  "production_ready": false,
+  "native_game_verified": true,
+  "logical_canvas": [
+    640,
+    360
+  ],
+  "verified": {
+    "setup_class": "0x8ec63c",
+    "setup_draw_slot": "0x8ec664",
+    "setup_original_draw": "0x116a44",
+    "root_class": "0x8ec988",
+    "root_movement_slot": "0x8eca20",
+    "root_hitting_slot": "0x8eca24",
+    "gui_timer_call": "0x27d830",
+    "canvas_fill": "0x12302c",
+    "ticks": "0x25fe2c",
+    "invalidate_area": "0x112fd4"
+  },
+  "candidate_ram": {
+    "code_start": "0x843b94",
+    "code_max_bytes": 5784,
+    "data_start": "0x25ca890",
+    "data_bytes": 576,
+    "owner": "AppUvcd sample static thread block, InitZero base 0x25ca628 + 0x268; full block 0x510",
+    "restriction": "Exact-image UVC sample reservation, idle/thread/stability preflight and InitZero/Init guards; retained until full power cycle"
+  },
+  "pending": [
+    "Broader long-duration recording and original USB file-transfer regression"
+  ],
+  "current_payload_sha256": "2288e858d4749482c28bd3b48dd9f8f52e1c775c0d47808728ffa8f669bab463",
+  "current_payload_hardware_verified": true,
+  "known_bug_fix": "Removed 5-second renewal; skip exact empty MsgDialogConWarper while preserving real popup preemption",
+  "firmware_integration": "v21 coldboot, native entry/swipe/exit user-confirmed; default USB Ethernet disabled"
+}

@@ -1,0 +1,3 @@
+WIFI_MODE=sta
+ESSID="Your Wi-Fi name"
+PASSWORD="Your Wi-Fi password"

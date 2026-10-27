@@ -1,0 +1,7 @@
+#!/bin/sh
+printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n'
+service=$(cat /tmp/oa_usbnet.status 2>/dev/null)
+case "$service" in ready|disabled|loading|waiting_for_camera) ;; error:*) service=error ;; *) service=not_started ;; esac
+link=$(cat /sys/class/udc/e0200000.dwc3/state 2>/dev/null)
+case "$link" in configured|connected|not\ attached|powered|default|addressed|suspended) ;; *) link=unavailable ;; esac
+printf '{"service":"%s","link":"%s","camera":"192.168.77.2","pc":"192.168.77.1"}\n' "$service" "$link"

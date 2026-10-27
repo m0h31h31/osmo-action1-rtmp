@@ -1,0 +1,18 @@
+#!/bin/sh
+# Wait for the existing camera bridge, independent of USB or Wi-Fi ownership.
+echo waiting_for_camera > /tmp/oa_snake.status
+n=0
+while [ "$n" -lt 240 ]; do
+    if [ -e /tmp/SD0/OA_SNAKE_DISABLE ] || [ -e /tmp/user_data/OA_SNAKE_DISABLE ]; then
+        echo disabled > /tmp/oa_snake.status
+        exit 0
+    fi
+    if [ -s /tmp/oa_rtmp_web/bridge.ready ]; then
+        sleep 10
+        exec /usr/bin/oa_snake
+    fi
+    sleep 1
+    n=$((n+1))
+done
+echo camera_not_ready > /tmp/oa_snake.status
+exit 1
