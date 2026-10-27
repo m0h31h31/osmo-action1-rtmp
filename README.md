@@ -1,5 +1,7 @@
 # Osmo Action 1 RTMP Firmware
 
+**简体中文** | [English](README.en.md)
+
 为初代 **DJI Osmo Action（AC101）** 开发的自定义固件，让相机通过 Wi-Fi STA 推送 RTMP，并在浏览器中管理直播。
 
 RTMP streaming firmware for the original DJI Osmo Action, with Wi-Fi STA, bilingual web controls, and a touchscreen Snake game.
